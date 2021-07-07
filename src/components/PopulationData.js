@@ -10,6 +10,7 @@ import ReactTooltip from 'react-tooltip';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container,Card,InputGroup,FormControl,Button } from 'react-bootstrap'
 import numeral from 'numeral'
+import { BrowserRouter as Router,Link } from 'react-router-dom'
 
 
 const PopulationData = () => {
@@ -163,10 +164,10 @@ const haversineManual3=(lat1,long1,lat2,long2,country1,country2)=>{
 
 
 
-
+let visited=[]
 
 const distanceBetween=(data)=>{
-    let visited=[]
+    
     let hev
     for(let i=0;i<data.length;i++){
 
@@ -184,7 +185,7 @@ const distanceBetween=(data)=>{
         visited.push(data[i].country)
         
     }
-    // console.log(visited)
+    //console.log(visited)
 
     return hev
 }
@@ -199,8 +200,9 @@ const distanceBetween=(data)=>{
         {/* <Mapdata countries={countries} mapdata={computedData} setTooltipContent={setContent} /> */}
         {/* <ReactTooltip>{content}</ReactTooltip>
         <Tabledata mapdata={computedData}/> */}
+    
         <Container className>
-
+        <Router>
         <Card className="width:18rem  " >
         <Card.Body>
             <Card.Title>
@@ -213,21 +215,34 @@ const distanceBetween=(data)=>{
   <div className="row justify-content-center p-3">
       <div>
           <h1>{distanceBetween(countries)} Kilometers</h1>
+          <h5>20 Countries with the population greater than or equal to  {limit?limit:0}</h5>
+          <div className="row p-2">
+             
+          {visited.map((country)=>(
+             <p>{country},</p>
+         ))}
+          </div>
+        
       </div>
   </div>
   <div className="row">
 
 
   <div className="col-6 d-flex justify-content-center">
-  <Button variant="primary">Geographical Result</Button>
+  
+  <Button variant="primary"><Link to={{pathname: "https://nithin-alva.netlify.app/"}} target="_blank"  >CONTACT ME </Link></Button>
   </div>
   <div className="col-6 d-flex justify-content-center">
-  <Button variant="dark">SOURCE CODE </Button>
+  
+  <Button variant="dark"><Link to={{pathname: "https://github.com/nithinalva/Rckr-assesment-Population-Problem"}} target="_blank"  >SOURCE CODE </Link> </Button>
+
   </div>
+  
   </div>
+  
         </Card.Body>
         </Card>
-
+        </Router>
         </Container>
         <div className="p-4">
         <Tabledata mapdata={computedData}/>
@@ -235,9 +250,10 @@ const distanceBetween=(data)=>{
          {/* {console.log(computedData)} */}
          <div className=" mt-4  map-box " >
              <h1 className="p-3">Geographical Representation</h1>
-        <Mapdata countries={countries} mapdata={computedData} setTooltipContent={setContent} /> */}
+        <Mapdata countries={countries} mapdata={computedData} setTooltipContent={setContent} /> 
          <ReactTooltip>{content}</ReactTooltip>
          </div >
+       {console.log(visited)}
         </div>
     )
 }

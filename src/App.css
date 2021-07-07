@@ -26,3 +26,7 @@
     height: 900px;
     width: 100%;
 }
+
+.btn a{
+    color: white !important;
+}
